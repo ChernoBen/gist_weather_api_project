@@ -39,3 +39,14 @@ def test_get_weather_success(mock_weather_sdk):
     assert result["city"] == "Itajai"
     assert result["clima"] == "Clear"
     assert result["temp"] == 25
+
+# Testing weather data retrieval failure in WeatherAdapter
+@patch('src.adapters.weather_sdk_adapter.WeatherSdk')
+def test_get_weather_failure(mock_weather_sdk):
+    mock_instance = mock_weather_sdk.return_value
+    mock_instance.get_weather_data.side_effect = Exception("Weather data error")
+    
+    adapter = WeatherAdapter(access_key="fake_access_key")
+    
+    with pytest.raises(WeatherException, match="Weather data error"):
+        adapter.get_weather(city="Itajai", country="br")
