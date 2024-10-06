@@ -24,4 +24,19 @@ class WeatherAdapter:
             raise WeatherException(e)
     
     def get_forecast(self,city: str,country: str) -> List[Dict]:
-        pass
+        """
+        Gets information about the weather forecast for the next 5 days.
+        :param city: target city for the query.
+        :param country: country code for the target query.
+        :raises WeatherException: If an error occurs while querying the weather.
+        """
+        try:
+            forecast_respose = self.weather.get_forecast_data(
+                city,
+                country
+            )
+            return forecast_respose
+        except Exception as e:
+            raise WeatherException(e)
+    
+    
