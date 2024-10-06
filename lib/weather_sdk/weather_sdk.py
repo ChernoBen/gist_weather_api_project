@@ -21,13 +21,30 @@ class WeatherSdk:
         except Exception as e:
             raise e
         
+    def get_forecast_data(self,city,country):
+        data = []  
+        forecast_response = self.__get_city_data(city,country,type='forecast?')
+        if forecast_response is None:
+            raise ValueError("Failed to retrieve forecast data")
+        try:  
+            for item in forecast_response["list"]:
+                data.append(
+                    {
+                        "temp":int(item["main"]["temp"]),
+                        "dt":self.__format_day_month(item["dt_txt"])
+                    }
+                )
+            return normalize_temperatures(data)
+        except Exception as e:
+            raise e
+        
     def __get_city_data(self,city,country,type):
         try:
             end_point = self.city_endpoint + type + f"q={city},{country}&APPID={self.api_key}&units=metric"
             response = requests.get(end_point)
-            response.raise_for_status()  # Verifica se houve algum erro na requisição
+            response.raise_for_status()
             res = response.json()
-            return res # Retorna o corpo da resposta como texto
+            return res 
         except requests.exceptions.ConnectionError as errc:
             print(f"Connection error: {errc}") 
             
