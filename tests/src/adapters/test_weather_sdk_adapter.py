@@ -68,3 +68,14 @@ def test_get_forecast_success(mock_weather_sdk):
     assert len(result) == 2
     assert result[0]["day"] == "2024-10-01"
     assert result[0]["temp"] == 25
+
+# Testing forecast data retrieval failure in WeatherAdapter
+@patch('src.adapters.weather_sdk_adapter.WeatherSdk')
+def test_get_forecast_failure(mock_weather_sdk):
+    mock_instance = mock_weather_sdk.return_value
+    mock_instance.get_forecast_data.side_effect = Exception("Forecast data error")
+    
+    adapter = WeatherAdapter(access_key="fake_access_key")
+    
+    with pytest.raises(WeatherException, match="Forecast data error"):
+        adapter.get_forecast(city="Itajai", country="br")
