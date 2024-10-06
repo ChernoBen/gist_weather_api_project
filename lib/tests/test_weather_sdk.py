@@ -50,3 +50,14 @@ def test_get_forecast_data_success(mock_get):
     assert isinstance(result, list)
     assert len(result) == 2
     assert result[0]["average_temp"] == 22
+    
+# Test for timeout exception case   
+@patch('weather_sdk.weather_sdk.requests.get')
+def test_get_forecast_data_timeout(mock_get):
+    # Simulando um erro de timeout
+    mock_get.side_effect = requests.exceptions.Timeout
+    
+    sdk = WeatherSdk(api_key="fake_api_key")
+    
+    with pytest.raises(requests.exceptions.Timeout):
+        sdk.get_forecast_data('Itajai', 'br')
