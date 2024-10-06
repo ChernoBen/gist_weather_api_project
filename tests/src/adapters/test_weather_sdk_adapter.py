@@ -50,3 +50,21 @@ def test_get_weather_failure(mock_weather_sdk):
     
     with pytest.raises(WeatherException, match="Weather data error"):
         adapter.get_weather(city="Itajai", country="br")
+        
+        
+# Testing the retrieval of weather forecast
+@patch('src.adapters.weather_sdk_adapter.WeatherSdk')
+def test_get_forecast_success(mock_weather_sdk):
+    mock_instance = mock_weather_sdk.return_value
+    mock_instance.get_forecast_data.return_value = [
+        {"day": "2024-10-01", "temp": 25},
+        {"day": "2024-10-02", "temp": 22}
+    ]
+    
+    adapter = WeatherAdapter(access_key="fake_access_key")
+    result = adapter.get_forecast(city="Itajai", country="br")
+    
+    assert isinstance(result, list)
+    assert len(result) == 2
+    assert result[0]["day"] == "2024-10-01"
+    assert result[0]["temp"] == 25
