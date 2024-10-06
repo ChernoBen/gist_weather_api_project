@@ -11,7 +11,17 @@ class WeatherAdapter:
             raise WeatherException(e)
                 
     def get_weather(self,city: str,country: str) -> dict:
-        pass
+        """
+        Gets information about the weather for the current day.
+        :param city: target city for the query.
+        :param country: country code for the target query.
+        :raises WeatherException: If an error occurs while querying the weather.
+        """
+        try:
+            weather_response = self.weather.get_weather_data(city,country)
+            return weather_response
+        except Exception as e:
+            raise WeatherException(e)
     
     def get_forecast(self,city: str,country: str) -> List[Dict]:
         pass
