@@ -15,4 +15,11 @@ def test_add_comment_success(mock_github):
     assert url == "https://gist.github.com/fake_gist_url"
     mock_gist.create_comment.assert_called_once_with("This is a test comment")
 
+# Testing if add_comment_to_gist method raises a PyGitHubException
+def test_empty_comment_error():
+    adapter = PyGitHubAdapter(access_token="fake_token")
+    
+    with pytest.raises(PyGitHubException, match="O comentário não pode estar vazio."):
+        adapter.add_comment_to_gist("")
+
 
