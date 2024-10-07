@@ -30,3 +30,15 @@ def test_create_gist_missing_city(mock_gist_service):
 
     assert exc_info.value.status_code == 400
     assert exc_info.value.detail == "O campo 'city' não pode estar vazio."
+    
+# Testing if controller raises an error if an invalid input was passed
+@patch('src.services.gist_service.GistService')
+def test_create_gist_missing_country(mock_gist_service):
+    mock_gist_instance = mock_gist_service.return_value
+    mock_gist_instance.create_new_gist.return_value = "http://gist.url"
+    
+    with pytest.raises(HTTPException) as exc_info:
+        client.post("/gist/", json={"city": "Itajai", "country": ""})
+
+    assert exc_info.value.status_code == 400
+    assert exc_info.value.detail == "O campo 'country' não pode estar vazio."
