@@ -40,3 +40,17 @@ def test_create_new_gist_success(mock_process_gist_content, mock_env, mock_githu
 
     service = GistService()
     url = service.create_new_gist(city="Itajai", country="br")
+    
+# Testing if create_new_gist method raises a WeatherException
+@patch('src.services.gist_service.WeatherAdapter')
+@patch('src.services.gist_service.PyGitHubAdapter')
+@patch('src.utils.envs.EnvironmentConfig')
+def test_create_new_gist_failure(mock_env, mock_github, mock_weather):
+    mock_env.get.side_effect = lambda key: "fake_key" if key in ["WEATHER_KEY", "GITHUB_KEY"] else None
+    mock_weather_instance = mock_weather.return_value
+    mock_weather_instance.get_weather.side_effect = WeatherException("Weather data error")
+    
+    service = GistService()
+    
+    with pytest.raises(WeatherException, match="Weather data error"):
+        service.create_new_gist(city="Itajai", country="br")
