@@ -11,6 +11,8 @@ services:
       - .:/app
     environment:
       - PYTHONUNBUFFERED=1
+    env_file:
+      - .env
 
   tests:
     build:
@@ -19,3 +21,5 @@ services:
     command: ["python", "-m", "pytest", ".", "-v"]
     volumes:
       - .:/app
+    env_file:
+      - .env
