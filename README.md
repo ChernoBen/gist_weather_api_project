@@ -26,9 +26,20 @@ Os testes podem ser executados tanto em um ambiente Docker quanto localmente. Ab
    ```bash
    docker compose run tests
 
+### Principais dependências:
+
+## Dependência: Weather SDK
+
+- **Weather SDK**: Esta biblioteca oferece uma interface para interagir com serviços de clima, permitindo que desenvolvedores integrem funcionalidades de previsão do tempo em suas aplicações. A dependência pode incluir serviços como OpenWeatherMap, WeatherAPI, ou outros serviços de clima populares.
+
+### Principais Funcionalidades
+
+1. **Consulta de Dados Meteorológicos**: Permite obter dados em tempo real sobre condições climáticas, incluindo temperatura, umidade, vento e precipitação.
+2. **Previsão do Tempo**: Oferece previsões meteorológicas para os próximos dias, permitindo que os usuários planejem atividades com base nas condições esperadas.
+
 ## Dependência: PyGithub
 
-- **PyGithub==2.4.0**: Esta biblioteca fornece uma interface fácil de usar para interagir com a API do GitHub. Com o PyGithub, é possível realizar operações como:
+- **PyGithub**: Esta biblioteca fornece uma interface fácil de usar para interagir com a API do GitHub. Com o PyGithub, é possível realizar operações como:
 
   - **Autenticação**: Permite a autenticação usando tokens de acesso, facilitando a interação com repositórios privados e operações sensíveis.
   - **Gerenciamento de Repositórios**: Criação, edição, exclusão e consulta de repositórios no GitHub.
