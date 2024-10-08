@@ -1,6 +1,6 @@
 import requests
 from datetime import datetime
-from weather_sdk.utils.utils import normalize_temperatures
+from lib.weather_sdk.utils.utils import normalize_temperatures
 
 class WeatherSdk:
     def __init__(self,api_key):

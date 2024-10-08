@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  fastapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    env_file:
+      - .env
+
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["python", "-m", "pytest", ".", "-v"]
+    volumes:
+      - .:/app
+    env_file:
+      - .env
