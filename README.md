@@ -52,3 +52,12 @@ Os testes podem ser executados tanto em um ambiente Docker quanto localmente. Ab
 A dependência `PyGithub` é fundamental para a funcionalidade de nossa API, permitindo que os usuários publiquem comentários em gists de forma programática. Por meio dessa biblioteca, nossa aplicação consegue interagir diretamente com a plataforma GitHub, oferecendo uma interface robusta e flexível para gerenciar comentários e gists.
 
 
+## CI/CD
+O projeto utiliza GitHub Actions para automatizar o processo de integração contínua (CI). O workflow é configurado para executar testes sempre que houver um push ou pull request para as branches main e develop. Isso garante que:
+
+Os testes sejam executados em um ambiente Docker sempre que uma nova alteração for proposta.
+Apenas pull requests com testes bem-sucedidos possam ser mesclados, ajudando a manter a integridade do código.
+Como Funciona
+Ao criar um pull request ou realizar um push para main ou develop, o GitHub Actions inicia a execução do workflow definido em .github/workflows/ci.yml.
+O workflow constrói a imagem Docker e executa os testes automatizados.
+O status da execução dos testes é exibido na interface do GitHub, permitindo que você veja rapidamente se os testes passaram ou falharam.
