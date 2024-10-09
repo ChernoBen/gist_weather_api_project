@@ -21,5 +21,4 @@ def get_word(word: str) -> str:
     for key,value in weather_conditions.items():
         if key == word.lower():
             return value
-        else:
-            return word
+    return word
