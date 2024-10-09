@@ -10,10 +10,22 @@ API integrada com serviço de clima para publicação de comentários em um Gist
 
 ### Via Docker
 1. Certifique-se de que o Docker esteja instalado e atualizado em sua máquina.
-2. Execute o comando:
+2. Certifique-se de definir as variáveis de ambiente no seu `.env` conforme o arquivo `.env.example`
+3. Execute o comando:
    ```bash
    docker compose up
-
+4. Siga para o caminho `127.0.0.1:8080/docs`
+5. Execute a `/gist` conforme o exemplo abaixo :
+   ```
+   {
+      "city": "Sao Paulo",
+      "country": "br"
+   }
+6. Em caso de sucesso, é esperado uma resposta contendo a url para o gist que deseja inserir o comentário conforme exemplo abaixo:
+   ```
+   {
+      "url": "https://gist.github.com/ChernoBen/c8beda72087bfc659e92915922aa28ec"   
+   }
 
 ## Testes
 
